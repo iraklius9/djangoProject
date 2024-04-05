@@ -1,6 +1,8 @@
 # My Django Project
+ 
+# This project contains an app called market where you can manage books. The market app includes functionality for viewing, adding, updating, and deleting books.
 
-This is a simple Django project with one superuser already created.
+## You can access the books-related functionalities through the admin interface or custom views defined in the market app.
 
 ## Setup Instructions
 
