@@ -1,6 +1,22 @@
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .models import Book
+from django.shortcuts import render
+
+
+# def initial_page(request):
+#     return JsonResponse({'message': 'Welcome to the Bookstore!\n'
+#                                     'To get information about a book, use the /book/<book_id> endpoint.\n'
+#                                     'To get information about all books, use the /books endpoint.\n'
+#                                     'To open admin page go to /admin/ with login: admin, password: admin123'})
+
+
+def initial_page(request):
+    context = {'message': 'Welcome to the Bookstore!\n'
+                          'To get information about a book, use the /book/<book_id> endpoint.\n'
+                          'To get information about all books, use the /books endpoint.\n'
+                          'To open admin page go to /admin/ with login: admin, password: admin123'}
+    return render(request, 'initial_page.html', context)
 
 
 def book_information(request, book_id):
