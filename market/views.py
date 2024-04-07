@@ -1,6 +1,6 @@
 import json
 from django.http import JsonResponse, HttpResponse
-from .models import Book
+from market.models import Book
 from django.shortcuts import render
 
 
