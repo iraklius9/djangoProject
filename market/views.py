@@ -2,6 +2,7 @@ import json
 from django.http import JsonResponse, HttpResponse
 from market.models import Book
 from django.shortcuts import render
+from django.utils.translation import gettext
 
 
 # def initial_page(request):
@@ -12,10 +13,10 @@ from django.shortcuts import render
 
 
 def initial_page(request):
-    context = {'message': 'Welcome to the Bookstore!\n'
-                          'To get information about a book, use the /book/<book_id> endpoint.\n'
-                          'To get information about all books, use the /books endpoint.\n'
-                          'To open admin page go to /admin/ with login: admin, password: admin123'}
+    context = {'message': gettext('Welcome to the Bookstore!\n'
+                                  'To get information about a book, use the /book/<book_id> endpoint.\n'
+                                  'To get information about all books, use the /books endpoint.\n'
+                                  'To open admin page go to /admin/ with login: admin, password: admin123')}
     return render(request, 'initial_page.html', context)
 
 
@@ -37,15 +38,6 @@ def book_information(request, book_id):
 
 
 def books_information(request):
-    books = Book.objects.all()
-    books_info = []
-    for book in books:
-        book_info = {
-            'name': book.name,
-            'author_name': book.author_name,
-            'category': book.category,
-            'price': str(book.price),
-        }
-        books_info.append(book_info)
-    books_json = json.dumps(books_info)
-    return JsonResponse({'books_info': books_json}, safe=False)
+    books = Book.objects.values_list('name', 'author_name', 'category', 'price')
+    books_info = list(books)
+    return JsonResponse({'books_info': books_info}, safe=False)
