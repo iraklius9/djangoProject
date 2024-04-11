@@ -8,6 +8,7 @@ class Book(models.Model):
     category = models.CharField(max_length=200, verbose_name='Category')
     price = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Price')
     image = models.ImageField(null=True, blank=True, verbose_name='Image')
+    description = models.TextField(null=True, blank=True, verbose_name='Description')
 
     def __str__(self):
         return self.name

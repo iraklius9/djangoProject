@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Listing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .book-container {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .book-info {
+            float: left;
+            margin-left: 20px;
+        }
+
+        .book-image {
+            float: left;
+            margin-right: 20px;
+        }
+
+        .book-image img {
+            max-width: 150px;
+            max-height: 200px;
+            border-radius: 5px;
+        }
+
+        .book-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .book-details {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pagination a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+            margin-top: -10px;
+        }
+
+        .pagination a:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+<h1 style="text-align: center;">Book Listing</h1>
+
+{% for book in page_obj %}
+    <div class="book-container">
+        <div class="book-image">
+            {% if book.image %}
+                <img src="{{ book.image.url }}" alt="{{ book.title }}">
+            {% else %}
+                <p>No image available</p>
+            {% endif %}
+        </div>
+        <div class="book-info">
+            <h2 class="book-title"><a href="{% url 'market:book_detail' book.id %}">{{ book.name }}</a></h2>
+            <p class="book-details">Author: {{ book.author_name }}</p>
+
+            <p class="book-details">Price: {{ book.price }}</p>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+{% endfor %}
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="{% url 'market:book_listing' %}?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% if page_obj.has_next %}
+        <a href="{% url 'market:book_listing' %}?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+</div>
+</body>
+</html>
