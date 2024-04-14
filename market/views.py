@@ -1,10 +1,10 @@
 import json
 
 from django.core.paginator import Paginator
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from market.models import Book
-from django.shortcuts import render
-from django.utils.translation import gettext
+from django.shortcuts import render, get_object_or_404
+# from django.utils.translation import gettext
 
 
 # def initial_page(request):
@@ -53,14 +53,16 @@ def book_listing(request):
 
 
 def book_detail(request, book_id):
-    try:
-        book = Book.objects.get(pk=book_id)
-        description = book.description
-        name = book.name
-        author_name = book.author_name
-        category = book.category
-        price = book.price
-        return render(request, 'book_detail.html', {'description': description, 'name': name, 'author_name': author_name,
-                                                    'category': category, 'price': price})
-    except Book.DoesNotExist:
-        return HttpResponse('Book not found.')
+    book = get_object_or_404(Book, pk=book_id)
+    description = book.description
+    name = book.name
+    author_name = book.author_name
+    category = book.category
+    price = book.price
+    return render(request, 'book_detail.html', {
+        'description': description,
+        'name': name,
+        'author_name': author_name,
+        'category': category,
+        'price': price
+    })
