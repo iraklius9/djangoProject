@@ -17,11 +17,3 @@ source myenv/bin/activate
 # On Windows
 python -m venv myenv
 .\myenv\Scripts\activate
-# 
-# pip install -r requirements.txt
-#
-# python manage.py migrate
-#
-# python manage.py createsuperuser
-#
-# python manage.py runserver
