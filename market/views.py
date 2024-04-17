@@ -20,22 +20,22 @@ def initial_page(request):
     return render(request, 'initial_page.html')
 
 
-def book_information(request, book_id):
-    try:
-        book = Book.objects.get(pk=book_id)
-
-        book_info = {
-            'name': book.name,
-            'author_name': book.author_name,
-            'category': book.category,
-            'price': str(book.price),
-            'description': book.description,
-        }
-
-        book_json = json.dumps(book_info)
-        return JsonResponse({'book_info': book_json}, safe=False)
-    except Book.DoesNotExist:
-        return JsonResponse({'error': 'Book not found.'})
+# def book_information(request, book_id):
+#     try:
+#         book = Book.objects.get(pk=book_id)
+#
+#         book_info = {
+#             'name': book.name,
+#             'author_name': book.author_name,
+#             'category': book.category,
+#             'price': str(book.price),
+#             'description': book.description,
+#         }
+#
+#         book_json = json.dumps(book_info)
+#         return JsonResponse({'book_info': book_json}, safe=False)
+#     except Book.DoesNotExist:
+#         return JsonResponse({'error': 'Book not found.'})
 
 
 def books_information(request):
