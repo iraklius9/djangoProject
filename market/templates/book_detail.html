@@ -39,8 +39,14 @@
         <p><strong>Book Name:</strong> {{ name }}</p>
         <p><strong>Description:</strong> {{ description }}</p>
         <p><strong>Author:</strong> {{ author_name }}</p>
-        <p><strong>Category:</strong> {{ category }}</p>
+        <p><strong>Category:</strong>
+            {% for category in categories %}
+                {{ category.name }}
+                {% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
         <p><strong>Price:</strong> {{ price }}</p>
+        <p><strong>Cover Type:</strong> {{ cover }}</p>
     </div>
 </body>
 </html>

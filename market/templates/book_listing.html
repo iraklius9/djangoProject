@@ -75,6 +75,27 @@
 <body>
 <h1 style="text-align: center;">Book Listing</h1>
 
+
+<form action="{% url 'market:book_listing' %}" method="get" style="margin-bottom: 20px;">
+    <label for="author">Filter by Author:</label>
+    <select name="author" id="author">
+        <option value="">All Authors</option>
+        {% for author in authors %}
+            <option value="{{ author.id }}">{{ author.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="category">Filter by Category:</label>
+    <select name="category" id="category">
+        <option value="">All Categories</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Apply Filters</button>
+</form>
+
 {% for book in page_obj %}
     <div class="book-container">
         <div class="book-image">
@@ -87,12 +108,18 @@
         <div class="book-info">
             <h2 class="book-title"><a href="{% url 'market:book_detail' book.id %}">{{ book.name }}</a></h2>
             <p class="book-details">Author: {{ book.author_name }}</p>
-
             <p class="book-details">Price: {{ book.price }}</p>
+            <p class="book-details">Categories:
+                {% for category in book.category.all %}
+                    {{ category.name }}
+                    {% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
         </div>
         <div style="clear: both;"></div>
     </div>
 {% endfor %}
+
 
 <div class="pagination">
     {% if page_obj.has_previous %}

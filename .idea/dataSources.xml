@@ -10,11 +10,11 @@
       <jdbc-url>jdbc:sqlite:C:\Users\User\PycharmProjects\djangoProject\db.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="db" uuid="5b8b8510-357b-4136-a061-9a82d04af271">
+    <data-source source="LOCAL" name="db [2]" uuid="46d78be8-94e2-41c9-8826-8687cea39440">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\User\PycharmProjects\djangoProjectnew\db.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\User\PycharmProjects\djangoProject9\db.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>

@@ -2,8 +2,10 @@ import json
 
 from django.core.paginator import Paginator
 from django.http import JsonResponse
-from market.models import Book
+from market.models import Book, Author, Category
 from django.shortcuts import render, get_object_or_404
+
+
 # from django.utils.translation import gettext
 
 
@@ -42,14 +44,39 @@ def books_information(request):
     return JsonResponse({'books_info': books_info}, safe=False)
 
 
+# def book_listing(request):
+#     all_books = Book.objects.all()
+#
+#     paginator = Paginator(all_books, 2)
+#     page_number = request.GET.get('page')
+#     page_obj = paginator.get_page(page_number)
+#
+#     return render(request, 'book_listing.html', {'page_obj': page_obj})
+
+
 def book_listing(request):
+    authors = Author.objects.all()
+    categories = Category.objects.all()
+
+    author_id = request.GET.get('author')
+    category_id = request.GET.get('category')
+
     all_books = Book.objects.all()
+
+    if author_id:
+        all_books = all_books.filter(author_name__id=author_id)
+
+    if category_id:
+        all_books = all_books.filter(category__id=category_id)
 
     paginator = Paginator(all_books, 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'book_listing.html', {'page_obj': page_obj})
+    return render(request, 'book_listing.html',
+                  {'page_obj': page_obj,
+                   'authors': authors,
+                   'categories': categories})
 
 
 def book_detail(request, book_id):
@@ -57,12 +84,14 @@ def book_detail(request, book_id):
     description = book.description
     name = book.name
     author_name = book.author_name
-    category = book.category
+    categories = book.category.all()
     price = book.price
+    cover = book.cover_type
     return render(request, 'book_detail.html', {
         'description': description,
         'name': name,
         'author_name': author_name,
-        'category': category,
-        'price': price
+        'categories': categories,
+        'price': price,
+        'cover': cover
     })
